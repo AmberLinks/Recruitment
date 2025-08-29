@@ -9,106 +9,30 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Noto Sans JP', sans-serif;
-            background-color: #f0f2f5; /* 印刷時には影響しません */
-        }
-        /* A4サイズを想定したコンテナ */
-        .a4-container {
-            width: 210mm;
-            min-height: 297mm;
-            padding: 20mm;
-            margin: 2rem auto;
-            background-color: white;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        h1 {
-            font-size: 28px;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 10px;
-            border-bottom: 2px solid #333;
-            padding-bottom: 10px;
-        }
-        /* 各セクションの上部に余白を設定 */
-        section {
-            margin-top: 4rem;
-        }
-        /* ただし、最初のセクションの余白は少し小さめに調整 */
-        main > section:first-of-type {
-            margin-top: 3rem;
-        }
-        h2 {
-            font-size: 20px;
-            font-weight: 700;
-            color: #1a73e8;
-            border-left: 5px solid #1a73e8;
-            padding-left: 10px;
-            margin-bottom: 1.5rem;
-        }
-        h3 {
-            font-size: 16px;
-            font-weight: 700;
-            margin-top: 1.5rem;
-            margin-bottom: 0.5rem;
-            border-bottom: 1px solid #e0e0e0;
-            padding-bottom: 4px;
-        }
-        p, li {
-            font-size: 14px;
-            line-height: 1.8;
-            color: #333;
-        }
-        ul {
-            list-style: none;
-            padding-left: 0;
-        }
-        li {
-            padding-left: 1.5em;
-            position: relative;
-        }
-        li::before {
-            content: '・';
-            position: absolute;
-            left: 0;
-            color: #1a73e8;
-        }
-        .info-grid {
-            display: grid;
-            grid-template-columns: 120px 1fr;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-        .info-grid dt {
-            font-weight: 500;
-            background-color: #f7f7f7;
-            padding: 12px;
-            border-radius: 8px;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .info-grid dd {
-            padding: 12px;
-            display: flex;
-            align-items: center;
-        }
-        @media print {
-            body {
-                background-color: white;
-            }
-            .a4-container {
-                box-shadow: none;
-                margin: 0;
-                padding: 15mm;
-                width: 100%;
-                min-height: 0;
-            }
-            h1, h2 {
-                page-break-after: avoid;
-            }
-        }
+        body { font-family: 'Noto Sans JP', sans-serif; background-color: #f0f2f5; }
+        .a4-container { width: 210mm; min-height: 297mm; padding: 20mm; margin: 2rem auto; background-color: white; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1 { font-size: 28px; font-weight: 700; text-align: center; margin-bottom: 10px; border-bottom: 2px solid #333; padding-bottom: 10px; }
+        section { margin-top: 4rem; }
+        main > section:first-of-type { margin-top: 3rem; }
+        h2 { font-size: 20px; font-weight: 700; color: #1a73e8; border-left: 5px solid #1a73e8; padding-left: 10px; margin-bottom: 1.5rem; }
+        h3 { font-size: 16px; font-weight: 700; margin-top: 1.5rem; margin-bottom: 0.5rem; border-bottom: 1px solid #e0e0e0; padding-bottom: 4px; }
+        p, li, label { font-size: 14px; line-height: 1.8; color: #333; }
+        ul { list-style: none; padding-left: 0; }
+        li { padding-left: 1.5em; position: relative; }
+        li::before { content: '・'; position: absolute; left: 0; color: #1a73e8; }
+        .info-grid { display: grid; grid-template-columns: 120px 1fr; gap: 1rem; margin-top: 1rem; }
+        .info-grid dt { font-weight: 500; background-color: #f7f7f7; padding: 12px; border-radius: 8px; text-align: center; display: flex; align-items: center; justify-content: center; }
+        .info-grid dd { padding: 12px; display: flex; align-items: center; }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-label { display: block; font-weight: 500; margin-bottom: 0.5rem; }
+        .form-input, .form-textarea { width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+        .form-input:focus, .form-textarea:focus { outline: none; border-color: #1a73e8; box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2); }
+        .submit-button { display: block; width: 100%; padding: 1rem; background-color: #1a73e8; color: white; font-weight: 700; border: none; border-radius: 4px; cursor: pointer; transition: background-color 0.3s; }
+        .submit-button:hover { background-color: #1558b8; }
+        .submit-button:disabled { background-color: #9e9e9e; cursor: not-allowed; }
+        #form-status { margin-top: 1rem; padding: 1rem; border-radius: 4px; text-align: center; display: none; }
+        .status-success { background-color: #e6f4ea; color: #2d6a4f; }
+        .status-error { background-color: #fde2e2; color: #a82020; }
     </style>
 </head>
 <body>
@@ -119,30 +43,21 @@
         </header>
 
         <main>
+            <!-- 求人情報セクション (省略しません) -->
             <section>
                 <h2>募集要項</h2>
                 <dl class="info-grid">
-                    <dt>職種</dt>
-                    <dd><p>動物看護師</p></dd>
-                    <dt>雇用形態</dt>
-                    <dd><p>アルバイト契約・業務委託契約</p></dd>
-                    <dt>給与</dt>
-                    <dd><p>時給 1,500円〜（経験や技術に応じて相談）</p></dd>
-                     <dt>勤務時間</dt>
-                    <dd><p>18:00 〜 22:00（実働4時間）</p></dd>
-                    <dt>勤務体系</dt>
-                    <dd><p>シフト制（週1日〜 相談可）</p></dd>
-                    <dt>診療日</dt>
-                    <dd><p>火・水・木</p></dd>
-                    <dt>勤務地</dt>
-                    <dd><p>ALTs動物病院<br>〒425-0041 静岡県焼津市石津１丁目19−２</p></dd>
-                    <dt>試用期間</dt>
-                    <dd><p>あり（3ヶ月）</p></dd>
-                    <dt>福利厚生</dt>
-                    <dd><p>交通費支給、社員割引</p></dd>
+                    <dt>職種</dt><dd><p>動物看護師</p></dd>
+                    <dt>雇用形態</dt><dd><p>アルバイト契約・業務委託契約</p></dd>
+                    <dt>給与</dt><dd><p>時給 1,500円〜（経験や技術に応じて相談）</p></dd>
+                    <dt>勤務時間</dt><dd><p>18:00 〜 22:00（実働4時間）</p></dd>
+                    <dt>勤務体系</dt><dd><p>シフト制（週1日〜 相談可）</p></dd>
+                    <dt>診療日</dt><dd><p>火・水・木</p></dd>
+                    <dt>勤務地</dt><dd><p>ALTs動物病院<br>〒425-0041 静岡県焼津市石津１丁目19−２</p></dd>
+                    <dt>試用期間</dt><dd><p>あり（3ヶ月）</p></dd>
+                    <dt>福利厚生</dt><dd><p>交通費支給、社員割引</p></dd>
                 </dl>
             </section>
-
             <section>
                 <h2>応募資格</h2>
                 <ul>
@@ -153,7 +68,6 @@
                     <li>心身ともに健康な方</li>
                 </ul>
             </section>
-            
             <section>
                 <h2>歓迎スキル</h2>
                 <ul>
@@ -161,7 +75,6 @@
                     <li>エキゾチックアニマルに興味のある方</li>
                 </ul>
             </section>
-
             <section>
                 <h2>求める人物像</h2>
                 <ul>
@@ -171,13 +84,11 @@
                     <li>新しいものに取り組む柔軟性のある思考をお持ちの方</li>
                 </ul>
             </section>
-
             <section>
                 <h2>業務内容</h2>
                 <div>
                     <h3>【主な仕事内容】</h3>
                     <p class="mb-4">動物看護師業務全般および受付業務をお任せします。</p>
-                    
                     <h4>■ 動物看護師業務</h4>
                     <ul>
                         <li><b>説明・指導：</b>処方薬、ワクチン、予防、避妊去勢、人と動物の共通感染症など</li>
@@ -187,7 +98,6 @@
                         <li><b>入院管理：</b>血管確保、輸液・投薬ライン管理、酸素吸入ライン管理など</li>
                         <li><b>手術補助：</b>術前準備、麻酔管理、器具出し、術後モニタリングなど</li>
                     </ul>
-
                     <h4 class="mt-6">■ 受付業務</h4>
                     <ul>
                         <li>電話対応</li>
@@ -196,12 +106,97 @@
                     </ul>
                 </div>
             </section>
-            
-            <footer class="mt-12 pt-6 border-t text-center">
-                <p class="font-bold">ALTs動物病院</p>
-                <p class="text-sm">ご応募を心よりお待ちしております。</p>
-            </footer>
-        </div>
+            <!-- ▼▼▼ 応募フォーム ▼▼▼ -->
+            <section>
+                <h2>応募フォーム</h2>
+                <form id="application-form">
+                    <div class="form-group">
+                        <label for="fullName" class="form-label">氏名</label>
+                        <input type="text" id="fullName" name="fullName" class="form-input" placeholder="例：動物 花子" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="birthDate" class="form-label">生年月日</label>
+                        <input type="date" id="birthDate" name="birthDate" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="experience" class="form-label">資格・経験</label>
+                        <textarea id="experience" name="experience" rows="6" class="form-textarea" placeholder="保有資格やこれまでのご経験、勤務条件、勤務開始希望日等を具体的にご記入ください。" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone" class="form-label">電話番号</label>
+                        <input type="tel" id="phone" name="phone" class="form-input" placeholder="例：090-1234-5678" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="form-label">メールアドレス</label>
+                        <input type="email" id="email" name="email" class="form-input" placeholder="例：your-email@example.com" required>
+                    </div>
+                    <div class="mt-8">
+                        <button type="submit" id="submit-btn" class="submit-button">応募内容を送信する</button>
+                    </div>
+                </form>
+                <div id="form-status"></div>
+            </section>
+            <!-- ▲▲▲ 応募フォーム ▲▲▲ -->
+        </main>
+        
+        <footer class="mt-12 pt-6 border-t text-center">
+            <p class="font-bold">ALTs動物病院</p>
+            <p class="text-sm">ご応募を心よりお待ちしております。</p>
+        </footer>
     </div>
+
+    <script>
+      const form = document.getElementById('application-form');
+      const submitBtn = document.getElementById('submit-btn');
+      const formStatus = document.getElementById('form-status');
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // ボタンを無効化し、多重送信を防ぐ
+        submitBtn.disabled = true;
+        submitBtn.textContent = '送信中...';
+        
+        // フォームデータをオブジェクトとして取得
+        const formData = {
+          fullName: form.elements['fullName'].value,
+          birthDate: form.elements['birthDate'].value,
+          experience: form.elements['experience'].value,
+          phone: form.elements['phone'].value,
+          email: form.elements['email'].value,
+        };
+
+        // サーバーサイドのGAS関数を呼び出す
+        google.script.run
+          .withSuccessHandler(onSuccess)
+          .withFailureHandler(onFailure)
+          .processForm(formData);
+      });
+
+      function onSuccess(response) {
+        // 成功メッセージを表示
+        formStatus.style.display = 'block';
+        formStatus.className = 'status-success';
+        formStatus.textContent = 'ご応募ありがとうございます。応募内容を受け付けました。確認のメールを送信しましたのでご確認ください。';
+        
+        // フォームをリセット
+        form.reset();
+        
+        // ボタンの状態を元に戻す
+        submitBtn.disabled = false;
+        submitBtn.textContent = '応募内容を送信する';
+      }
+
+      function onFailure(error) {
+        // エラーメッセージを表示
+        formStatus.style.display = 'block';
+        formStatus.className = 'status-error';
+        formStatus.textContent = 'エラーが発生しました。お手数ですが、時間をおいて再度お試しください。エラー: ' + error.message;
+
+        // ボタンの状態を元に戻す
+        submitBtn.disabled = false;
+        submitBtn.textContent = '応募内容を送信する';
+      }
+    </script>
 </body>
 </html>
