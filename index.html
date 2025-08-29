@@ -104,6 +104,7 @@
                     </ul>
                 </div>
             </section>
+
             <!-- ▼▼▼ 応募フォーム ▼▼▼ -->
             <section>
                 <h2>応募フォーム</h2>
@@ -143,52 +144,47 @@
         </footer>
     </div>
 
-    <!-- ▼▼▼ ここからがGASと連携するためのJavaScriptコードです ▼▼▼ -->
+    <!-- ▼▼▼ GAS連携用 JavaScript ▼▼▼ -->
     <script>
-      // ☆設定項目☆
-      // 「設定手順.md」のステップ3でコピーした、ご自身のウェブアプリURLを貼り付けてください
-      const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycby9kGK_ujfnV3z8xyD5ZYiPBJAL21gA71zswZbpPzNMqlNaIkRaIuR1_uVqO3Wj9vcI/exec';
+      // ▼ ご自身の Web アプリ URL（最新版のデプロイ URL）に置き換えてください
+      const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxgzFQpI0zgj4msS5omA3Viy3eJqpZX3_w3ZEwFvO2N2hHvrSrvV-wlgsJk--TV7C7x/exec';
 
-      // --- ここから下は変更不要です ---
       const form = document.getElementById('application-form');
       const submitBtn = document.getElementById('submit-btn');
       const formStatus = document.getElementById('form-status');
 
       form.addEventListener('submit', function(e) {
-        // デフォルトのフォーム送信をキャンセル
         e.preventDefault();
         
-        // 送信ボタンを無効化し、テキストを「送信中...」に変更
         submitBtn.disabled = true;
         submitBtn.textContent = '送信中...';
-        
-        // フォームの各入力値を取得してオブジェクトにまとめる
-        const formData = {
+
+        // ★ プリフライト回避のため URL エンコードで送信
+        const params = new URLSearchParams({
           fullName: form.elements['fullName'].value,
           birthDate: form.elements['birthDate'].value,
           experience: form.elements['experience'].value,
           phone: form.elements['phone'].value,
           email: form.elements['email'].value,
-        };
+        });
 
-        // fetch APIを使って、GASのURLにデータをPOST送信する
         fetch(GAS_WEB_APP_URL, {
           method: 'POST',
-          body: JSON.stringify(formData), // データをJSON形式の文字列に変換
           headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
           },
+          body: params.toString(),
         })
-        .then(response => response.json()) // GASからの返却値をJSONとして解釈
-        .then(data => {
-          if (data.status === 'success') {
-            onSuccess(); // 成功した場合の処理
+        .then(async (response) => {
+          const data = await response.json().catch(() => ({}));
+          if (response.ok && data.status === 'success') {
+            onSuccess();
           } else {
-            onFailure({ message: data.message || '不明なエラーが発生しました。' }); // 失敗した場合の処理
+            throw new Error(data.message || 'サーバーエラーが発生しました');
           }
         })
-        .catch(error => {
-          onFailure(error); // 通信エラーなどが発生した場合の処理
+        .catch((error) => {
+          onFailure(error);
         });
       });
 
@@ -196,7 +192,7 @@
         formStatus.style.display = 'block';
         formStatus.className = 'status-success';
         formStatus.textContent = 'ご応募ありがとうございます。応募内容を受け付けました。確認のメールを送信しましたのでご確認ください。';
-        form.reset(); // フォームの内容をリセット
+        form.reset();
         submitBtn.disabled = false;
         submitBtn.textContent = '応募内容を送信する';
       }
@@ -205,11 +201,11 @@
         formStatus.style.display = 'block';
         formStatus.className = 'status-error';
         formStatus.textContent = 'エラーが発生しました。お手数ですが、時間をおいて再度お試しください。';
-        console.error('Error:', error.message);
+        console.error('Error:', error && error.message ? error.message : error);
         submitBtn.disabled = false;
         submitBtn.textContent = '応募内容を送信する';
       }
     </script>
-    <!-- ▲▲▲ ここまでがGASと連携するためのJavaScriptコードです ▲▲▲ -->
+    <!-- ▲▲▲ GAS連携用 JavaScript ▲▲▲ -->
 </body>
 </html>
